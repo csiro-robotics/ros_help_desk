@@ -1,0 +1,26 @@
+name: penguinpi_agent
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - opencv
+  - pillow
+  - flask
+  - gevent
+  - pytorch
+  - torchvision
+  - pip
+  - pip:
+    - python-dotenv
+    - pyinputplus
+    - rich>=12.6.0
+    - openai
+    - gradio
+    - langchain>=0.0.27
+    - pydantic==2.10.6
+    - pydantic-settings>=0.2.5
+    - transformers
+    - sentence-transformers 

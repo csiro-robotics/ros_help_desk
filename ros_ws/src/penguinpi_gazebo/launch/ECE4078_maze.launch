@@ -1,0 +1,24 @@
+<launch>
+  <!-- Launch Gazebo with the maze world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find penguinpi_gazebo)/worlds/ECE4078_maze.world" />
+    <arg name="gui" value="true"/>
+  </include>
+
+  <!-- Static transform for camera -->
+  <node pkg="tf" type="static_transform_publisher" name="camera_link" 
+        args="0.08 0.0 0.015 0 0 0 /PenguinPi/base_link /camera_link 100" /> 
+
+  <!-- Scene Manager: Load objects from map file -->
+  <node name="scene_manager" pkg="penguinpi_gazebo" type="scene_manager.py" output="screen" args="-l map1.txt" />
+
+  <!-- Keyboard Control for PenguinPi -->
+  <node name="penguin_keyboard_control" pkg="penguin_control" type="keyboard_control.py" output="screen">
+    <param name="linear_speed" value="0.3" />
+    <param name="angular_speed" value="0.8" />
+  </node>
+
+  <!-- Optional: Enable RViz visualization -->
+  <!-- <node type="rviz" name="rviz" pkg="rviz" args="-d $(find penguinpi_gazebo)/rviz/default.rviz" /> -->
+  
+</launch> 

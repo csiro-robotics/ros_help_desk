@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- PenguinPi Keyboard Control Launch File -->
+  
+  <!-- Launch the PenguinPi simulation environment (optional - uncomment if needed) -->
+  <!-- <include file="$(find penguinpi_gazebo)/launch/penguinpi.launch" /> -->
+  
+  <!-- Launch the keyboard control node -->
+  <node name="penguin_keyboard_control" pkg="penguin_control" type="keyboard_control.py" output="screen">
+    <param name="linear_speed" value="0.3" />
+    <param name="angular_speed" value="0.8" />
+  </node>
+  
+  <!-- Optional: Launch RQT image view to monitor camera feed -->
+  <!-- <node name="image_view" pkg="rqt_image_view" type="rqt_image_view" args="/picam/camera/image_raw" /> -->
+  
+</launch> 

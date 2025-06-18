@@ -1,0 +1,27 @@
+<robot name="person">
+  <link name="person">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.6" />
+      <inertia  ixx="0.0" ixy="0.0"  ixz="0.0"  iyy="0.0"  iyz="0.0"  izz="0.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0 0 0.0"/>
+      <geometry>
+        <mesh filename="package://penguinpi_gazebo/models/person/model.dae" scale="0.2 0.2 0.2"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="package://penguinpi_gazebo/models/person/model.dae" scale="0.2 0.2 0.2"/>
+<!--
+        <box>
+          <size>0.3556 0.9398 1.8796</size>
+          <scale>0.2 0.2 0.2</scale>
+        </box>
+-->
+      </geometry>
+    </collision>
+  </link>
+</robot>

@@ -1,0 +1,117 @@
+# Simplified Fault Injection Scenarios Configuration
+# ==================================================
+
+scenarios:
+  keyboard_delay:
+    name: "Keyboard Delay Fault"
+    description: "Learn to debug delayed keyboard responses"
+    difficulty: "beginner"
+    duration: 305  # 305 seconds total for longer testing
+    component: "keyboard"  # keyboard OR camera
+    fault_type: "delay"    # delay, drop, or corruption
+    
+    # Timing configuration
+    normal_duration: 5     # 5 seconds normal operation
+    fault_duration: 300    # 5 minutes with fault
+    
+    # Fault parameters
+    fault_rate: 0.4        # 40% of messages affected
+    fault_severity: 0.3    # 30% severity (0.0 to 1.0)
+    
+    # Fault-specific parameters
+    parameters:
+      delay_range: [0.2, 1.0]  # 200ms to 1s delay
+      jitter: 0.1              # Random variation
+
+  keyboard_drop:
+    name: "Keyboard Drop Fault"
+    description: "Learn to debug dropped keyboard commands"
+    difficulty: "beginner"
+    duration: 305  # 305 seconds total for longer testing
+    component: "keyboard"
+    fault_type: "drop"
+    
+    normal_duration: 5
+    fault_duration: 300    # 5 minutes with fault
+    
+    fault_rate: 0.5        # 50% of messages dropped
+    fault_severity: 0.6    # 60% severity
+    
+    parameters:
+      burst_drops: false   # Single drops vs burst drops
+      burst_size: 3        # If burst_drops=true, drop this many in a row
+
+  keyboard_corruption:
+    name: "Keyboard Corruption Fault"
+    description: "Learn to debug corrupted keyboard commands"
+    difficulty: "intermediate"
+    duration: 305
+    component: "keyboard"
+    fault_type: "corruption"
+    
+    normal_duration: 5
+    fault_duration: 300    # 5 minutes with fault
+    
+    fault_rate: 0.3        # 30% of messages corrupted
+    fault_severity: 0.4    # 40% severity
+    
+    parameters:
+      corruption_factor: [0.5, 2.0]  # Scale velocity by this range
+      add_noise: true                 # Add random noise
+      noise_std: 0.1                 # Standard deviation
+
+  camera_delay:
+    name: "Camera Delay Fault"
+    description: "Learn to debug delayed camera frames"
+    difficulty: "beginner"
+    duration: 305
+    component: "camera"
+    fault_type: "delay"
+    
+    normal_duration: 5
+    fault_duration: 300    # 5 minutes with fault
+    
+    fault_rate: 0.4
+    fault_severity: 0.3
+    
+    parameters:
+      delay_range: [0.1, 0.8]  # 100ms to 800ms delay
+      jitter: 0.05
+
+  camera_drop:
+    name: "Camera Drop Fault"
+    description: "Learn to debug dropped camera frames"
+    difficulty: "beginner"
+    duration: 305
+    component: "camera"
+    fault_type: "drop"
+    
+    normal_duration: 5
+    fault_duration: 300    # 5 minutes with fault
+    
+    fault_rate: 0.4        # 40% of frames dropped
+    fault_severity: 0.5
+    
+    parameters:
+      burst_drops: false
+      burst_size: 2
+
+  camera_corruption:
+    name: "Camera Corruption Fault"
+    description: "Learn to debug corrupted camera images"
+    difficulty: "intermediate"
+    duration: 305
+    component: "camera"
+    fault_type: "corruption"
+    
+    normal_duration: 5
+    fault_duration: 300    # 5 minutes with fault
+    
+    fault_rate: 0.3        # 30% of images corrupted
+    fault_severity: 0.4
+    
+    parameters:
+      corruption_type: "blur"    # blur, noise, pixelate, brightness
+      blur_kernel: 15            # For blur corruption
+      noise_strength: 0.2        # For noise corruption
+      pixelate_factor: 8         # For pixelate corruption 

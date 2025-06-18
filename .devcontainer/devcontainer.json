@@ -1,0 +1,49 @@
+{
+  "name": "Jazzy",
+  "dockerFile": "Dockerfile",
+  "mounts": [
+	"type=bind,source=/tmp/.X11-unix,destination=/tmp/.X11-unix",
+	"type=bind,source=${localEnv:XAUTHORITY},destination=/home/vscode/.Xauthority",
+	"type=volume,source=ros2-nav-ccache,destination=/ccache",
+	"source=/dev,target=/dev,type=bind"
+	],
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"NVIDIA_DRIVER_CAPABILITIES": "compute,utility,graphics",
+		"NVIDIA_VISIBLE_DEVICES": "all",
+		"OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}"
+	},
+	"runArgs": [
+		"--device",
+		"/dev/dri:/dev/dri",
+		"--network",
+		"host",
+		"--ipc=host",
+		"--pid=host",
+		"--privileged",
+		"--runtime",
+		"nvidia",
+		"--gpus",
+		"all"
+	],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind",
+  "workspaceFolder": "/${localWorkspaceFolderBasename}",
+//   "postCreateCommand": "cd /${localWorkspaceFolderBasename}/ros2_ws && rosdep install --from-path src -yi && colcon build --symlink-install",
+  "customizations": {
+    "vscode": {
+      "extensions":[
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-themes",
+        "ms-python.python",
+        "ms-python.pylint",
+        "twxs.cmake",
+        "donjayamanne.python-extension-pack",
+        "eamodio.gitlens",
+        "ms-iot.vscode-ros",
+        "ms-azuretools.vscode-docker",
+        "vscode-icons-team.vscode-icons",
+        "yzhang.markdown-all-in-one"
+	    ]
+    }
+  }
+}

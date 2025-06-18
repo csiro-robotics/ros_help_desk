@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Fault Injection System Launch File -->
+  <!-- This launch file starts the fault injection system for educational purposes -->
+  
+  <!-- Arguments -->
+  <arg name="scenario" default="task1_keyboard" doc="Fault injection scenario to run"/>
+  <arg name="enable_controller" default="false" doc="Enable fault controller UI"/>
+  <arg name="keyboard_faults" default="true" doc="Enable keyboard fault injection"/>
+  <arg name="camera_faults" default="false" doc="Enable camera fault injection"/>
+  <arg name="log_level" default="INFO" doc="ROS log level"/>
+  
+  <!-- Keyboard Fault Injector -->
+  <node name="keyboard_fault_injector" pkg="fault_injection" type="keyboard_fault_injector.py" 
+        output="screen" if="$(arg keyboard_faults)">
+    <param name="scenario" value="$(arg scenario)"/>
+    <param name="log_level" value="$(arg log_level)"/>
+  </node>
+  
+  <!-- Keyboard Message Forwarder (when no keyboard faults) -->
+  <node name="keyboard_forwarder" pkg="topic_tools" type="relay" 
+        args="/PenguinPi/cmd_vel_clean /PenguinPi/cmd_vel" 
+        unless="$(arg keyboard_faults)">
+  </node>
+  
+  <!-- Camera Fault Injector -->
+  <node name="camera_fault_injector" pkg="fault_injection" type="camera_fault_injector.py" 
+        output="screen" if="$(arg camera_faults)">
+    <param name="scenario" value="$(arg scenario)"/>
+    <param name="log_level" value="$(arg log_level)"/>
+  </node>
+  
+  <!-- Camera Message Forwarder (when no camera faults) -->
+  <node name="camera_forwarder" pkg="topic_tools" type="relay" 
+        args="/picam/camera/image_raw /picam/camera/image_raw_dev" 
+        unless="$(arg camera_faults)">
+  </node>
+  
+  <!-- Fault Controller (Interactive UI) -->
+  <node name="fault_controller" pkg="fault_injection" type="fault_controller.py" 
+        output="screen" if="$(arg enable_controller)">
+    <param name="log_level" value="$(arg log_level)"/>
+  </node>
+  
+  <!-- Log configuration -->
+  <param name="/fault_injection/log_directory" value="/tmp/fault_injection_logs"/>
+  <param name="/fault_injection/save_logs" value="true"/>
+  
+  <!-- Safety parameters -->
+  <param name="/fault_injection/max_fault_severity" value="0.9"/>
+  <param name="/fault_injection/emergency_stop_enabled" value="true"/>
+  <param name="/fault_injection/fault_timeout" value="600"/>
+  
+</launch> 

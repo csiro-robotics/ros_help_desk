@@ -1,0 +1,22 @@
+<launch>
+  <!-- Launch the PenguinPi simulation environment -->
+  <include file="$(find penguinpi_gazebo)/launch/penguinpi.launch" />
+  
+  <!-- Wait a moment for the simulation to start -->
+  <arg name="wait_time" default="3.0" />
+  
+  <!-- Launch the PenguinPi Agent -->
+  <node name="penguinpi_agent" pkg="penguinpi_agent" type="penguinpi_control.py" output="screen">
+    <param name="streaming" value="false" />
+    <param name="verbose" value="true" />
+  </node>
+  
+  <!-- Optional: Launch the Gradio web interface -->
+  <!-- Uncomment the following lines if you want to use the web interface -->
+  <!--
+  <node name="penguinpi_agent_gradio" pkg="penguinpi_agent" type="ROSHD.py" output="screen">
+    <param name="server_port" value="7860" />
+  </node>
+  -->
+  
+</launch> 
