@@ -1,6 +1,6 @@
 # ROS Help Desk - Simplified implementation of ROS Help desk for PenguinPi robot.
 
-Paper:
+Paper: [Enhancing ROS Debugging: A User-Centric Diagnostic Framework](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11560909&tag=1)
 
 ## Overview 
 We present ROS Help Desk (RosHD): a framework that enables developers with diverse expertise levels to detect system anomalies and effectively debug system errors. RosHD leverages LLM-powered ReAct agents coordinating specialised tools for real-time system health monitoring, multimodal data integration, user-tailored explanations and an intuitive graphical interface, collectively assisting developers to monitor complex ROS-based robotic systems and resolve reported or characterised issues.
